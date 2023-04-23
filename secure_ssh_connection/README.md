@@ -33,11 +33,11 @@
 
 #### make sure UsePAM and RSAAuthentication is equal to yes.
 
+**if you changed the sshd configs you must restart ssh service**
+
 ### step 4 then change the authorized_keys file permissions
 
     chmod 600 authorized_keys
-
-**if you changed the sshd configs you must restart ssh service**
 
 ### step 5 after this we must copy ssh key to ansible server:
 
