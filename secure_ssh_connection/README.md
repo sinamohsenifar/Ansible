@@ -33,7 +33,13 @@
 
 #### make sure UsePAM and RSAAuthentication is equal to yes.
 
-**if you changed the sshd configs you must restart ssh service**
+#### if you changed the sshd configs you must restart ssh service
+
+    #Debian base
+    systemctl restart ssh
+
+    #Redhat base
+    systemctl restart sshd
 
 ### step 4 then change the authorized_keys file permissions
 
