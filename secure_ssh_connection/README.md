@@ -1,8 +1,8 @@
 # Ansible Secure Connections with SSH RSA for Linux
 
-## make sure you have openssh package
+**make sure you have openssh package**
 
-sudo apt-get install openssh-client
+    sudo apt-get install openssh-client
 
 ## Copy SSH files **manualy**
 
