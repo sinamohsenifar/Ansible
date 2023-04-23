@@ -18,9 +18,20 @@
 
     mv ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
 
-#### we must do this because its the address that sshd service will check it when we want to do login. you can change the address in /etc/ssh/sshd_config file, search for AuthorizedKeysFile and change the address.
+#### we must do this because its the address that sshd service will check it when we want to do login. you can change the address in
 
-#### there is some other options in this file like PasswordAuthentication, RSAAuthentication, UsePAM and PubkeyAuthentication. make sure UsePAM and RSAAuthentication is equal to yes.
+    /etc/ssh/sshd_config
+
+#### search for AuthorizedKeysFile and change the address.
+
+#### there is some other options in this file like
+
+    PasswordAuthentication
+    RSAAuthentication
+    UsePAM
+    PubkeyAuthentication
+
+#### make sure UsePAM and RSAAuthentication is equal to yes.
 
 ### step 4 then change the authorized_keys file permissions
 
