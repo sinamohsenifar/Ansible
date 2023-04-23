@@ -1,5 +1,9 @@
 # Ansible Secure Connections with SSH RSA for Linux
 
+## make sure you have openssh package
+
+sudo apt-get install openssh-client
+
 ## Copy SSH files **manualy**
 
 ### step 1 execute this command in client machine to create new key:
