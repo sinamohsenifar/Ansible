@@ -27,7 +27,7 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 Navigate to the root of the repository and run the following command to execute a playbook:
 
     ```bash
-    ansible-playbook -i inventory.conf playbooks/<playbook_name>.yml
+    ansible-playbook -i inventory.conf playbooks/<playbook_name>.yml```
 
 
 
@@ -36,14 +36,14 @@ Navigate to the root of the repository and run the following command to execute 
     ### notes:
     - Every time you changed zone files you can run it again
     - you must add your host name and their ip to zone file. 
-    
+
 ### Main Zone Configuration
     Playbook: playbooks/config_main_zone.yml
     Usage: Configures DNS settings for the main zone servers, this server is like bridge between all dns servers and zones.
     Command:
 
     ```bash
-    ansible-playbook -i inventory.conf playbooks/config_main_zone.yml
+    ansible-playbook -i inventory.conf playbooks/config_main_zone.yml```
 
 ### Zone One Configuration
 
