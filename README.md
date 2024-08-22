@@ -33,7 +33,10 @@ Navigate to the root of the repository and run the following command to execute 
 
 
 ## Manage DNS SERVER With Ansible
-
+    ### notes:
+    - Every time you changed zone files you can run it again
+    - you must add your host name and their ip to zone file. 
+    
 ### Main Zone Configuration
     Playbook: playbooks/config_main_zone.yml
     Usage: Configures DNS settings for the main zone servers, this server is like bridge between all dns servers and zones.
