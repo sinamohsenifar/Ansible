@@ -15,9 +15,10 @@ This repository contains various Ansible playbooks and roles for automating infr
 - Ensure Ansible is installed on your control machine.
 - Clone this repository to your local machine.
 - This ansibles uses ssh key to login to servers. make sure you added your ssh-key to every machines with this command:
+    
     ```bash 
     ssh-copy-id root@<ip-address>
-
+    ```
 ### Setting Up Inventory
 
 The `inventory.conf` file should contain the groups and hosts that will be managed by Ansible. Customize this file according to your infrastructure.
@@ -89,5 +90,5 @@ Navigate to the root of the repository and run the following command to execute 
     ```bash
     ansible-playbook -i inventory.conf playbooks/installpackage.yml -e "host_group=kafka packages=python3,bind"
     ```
-    
+
     Details: This playbook runs the install_packages_role to install the packages listed in the packages variable on the hosts specified in the host_group.
