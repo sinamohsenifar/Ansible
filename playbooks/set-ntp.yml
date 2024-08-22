@@ -1,0 +1,5 @@
+---
+- name: Set hostnames and restart
+  hosts: all-servers
+  roles:
+    - set-ntp

@@ -1,0 +1,18 @@
+---
+- name: Generate random password
+  set_fact:
+    random_password: "{{ lookup('password', '/dev/null length=24 chars=ascii_letters,digits') }}"
+
+- name: Set new password
+  vars:
+    new_pass: "{{ random_password | password_hash('sha512') }}"
+  user:
+    name: root
+    password: "{{ new_pass }}"
+- name: Display password
+  debug:
+    msg:
+      - "Host: {{ ansible_host }}"
+      - "     Domain: {{ inventory_hostname }}"
+      - "     Pass: {{ random_password }}"
+      - ""

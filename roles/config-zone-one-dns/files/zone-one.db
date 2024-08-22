@@ -1,0 +1,19 @@
+
+$TTL 86400
+@                   IN          SOA         dns01.zone-one.org root.zone-one.org. (
+                                                2011071001 ; serial
+                                                3600 ; refresh
+                                                1800 ; retry
+                                                604800 ; expire
+                                                86400 ) ; minimum
+
+@                IN          NS          dns01.zone-one.org.
+
+@                IN          A           10.11.3.2
+
+
+
+
+
+dns01            IN          A           10.11.3.2
+

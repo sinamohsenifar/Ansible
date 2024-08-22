@@ -1,0 +1,24 @@
+---
+# tasks file for set-hostnames
+- name: set hostnames
+  ansible.builtin.shell:
+    cmd: hostnamectl set-hostname {{ inventory_hostname }}
+    chdir: /opt
+
+- name: add hostname to hosts file
+  ansible.builtin.shell: |
+    sed -i '/{{ inventory_hostname_short }}/d' /etc/hosts
+    echo "{{ ansible_host }}  {{ inventory_hostname }}  {{ inventory_hostname_short }}" >> /etc/hosts
+
+- name: Ensure the hostname is set in the current session
+  ansible.builtin.shell: |
+    echo "{{ inventory_hostname }}" > /proc/sys/kernel/hostname
+  when: ansible_facts['os_family'] == 'RedHat' or ansible_facts['os_family'] == 'Debian'
+
+- name: see hostnames
+  command: hostname
+  register: hostname_output
+
+- name: display hostname
+  debug:
+    var: hostname_output.stdout

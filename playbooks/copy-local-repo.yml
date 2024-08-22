@@ -1,0 +1,5 @@
+---
+- name: Config Local repo file
+  hosts: all
+  roles:
+    - roles/installing-local-repo

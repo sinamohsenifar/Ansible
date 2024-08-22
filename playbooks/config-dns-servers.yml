@@ -1,0 +1,20 @@
+---
+- name: Config zone main servers
+  hosts: zoneMain
+  roles:
+    - roles/config-zone-main-dns
+
+- name: Config zone one servers
+  hosts: zoneOne
+  roles:
+    - roles/config-zone-one-dns
+
+- name: Config zone two servers
+  hosts: zoneTow
+  roles:
+    - roles/config-zone-two-dns
+
+- name: Config zone three servers
+  hosts: zoneThree
+  roles:
+    - roles/config-zone-three-dns

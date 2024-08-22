@@ -1,0 +1,29 @@
+---
+# tasks file for installing-local-repo
+- name: clean all caches
+  ansible.builtin.shell:
+    cmd: yum clean all && dnf clean all
+    chdir: /opt
+
+- name: remove original repo files
+  ansible.builtin.shell:
+    cmd: rm -rf *
+    chdir: /etc/yum.repos.d/
+
+- name: Copy local repo file with owner and permissions
+  ansible.builtin.copy:
+    src: files/local.repo
+    dest: /etc/yum.repos.d/local.repo
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: dnf makecache
+  ansible.builtin.shell:
+    cmd: dnf makecache -y
+    chdir: /opt
+
+- name: update packages
+  ansible.builtin.shell:
+    cmd: dnf upgrade -y
+    chdir: /opt

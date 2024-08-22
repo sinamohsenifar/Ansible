@@ -1,0 +1,11 @@
+[appstream]
+name=Nexus Local Appstream Repository
+baseurl="http://10.10.3.4:8000/appstream/"
+gpgcheck=0
+enabled=1
+
+[baseos]
+name=Nexus Local Baseos Repository
+baseurl="http://10.10.3.4:8000/baseos/"
+gpgcheck=0
+enabled=1

@@ -1,0 +1,34 @@
+---
+# tasks file for set-ntp
+- name: Install chrony package
+  ansible.builtin.yum:
+    name:
+      - chrony
+    state: latest
+    update_cache: false
+
+- name: stop chronyd
+  ansible.builtin.shell:
+    cmd: systemctl stop chronyd
+    chdir: /opt
+
+- name: Copy chrony config to server
+  ansible.builtin.copy:
+    src: files/chrony.conf
+    dest: /etc/chrony.conf
+    owner: root
+    group: root
+    mode: "0644"
+
+- name: enable chronyd
+  ansible.builtin.shell:
+    cmd: systemctl enable --now chronyd
+    chdir: /opt
+
+- name: execute timedatectl to see if its OK
+  command: timedatectl
+  register: timedatectl_check
+
+- name: Display changes for ntp
+  debug:
+    var: timedatectl_check.stdout

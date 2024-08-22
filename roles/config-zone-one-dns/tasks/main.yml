@@ -1,0 +1,72 @@
+---
+- name: Install BIND package
+  package:
+    name:
+      - bind
+      - bind-utils
+      - bind-chroot
+    state: present
+
+- name: copy some files to zone one server
+  ansible.builtin.copy:
+    src: files/named.conf
+    dest: /etc/named.conf
+    owner: named
+    group: named
+    mode: "0644"
+
+- name: copy some files to zone one server
+  ansible.builtin.copy:
+    src: files/zone-one.db
+    dest: /var/named/zone-one.db
+    owner: named
+    group: named
+    mode: "0644"
+
+- name: copy some files to zone one server
+  ansible.builtin.copy:
+    src: files/zone-one.rev.db
+    dest: /var/named/zone-one.rev.db
+    owner: named
+    group: named
+    mode: "0644"
+
+- name: create log file
+  shell:
+    cmd: touch /var/named/data/named.run
+
+- name: change owner of /var/named
+  shell:
+    cmd: chown named:named -R /var/named
+
+- name: stop Bind
+  shell:
+    cmd: systemctl stop named
+
+- name: enable Bind
+  shell:
+    cmd: systemctl enable --now named
+
+- name: get bind status
+  command: systemctl status named
+  register: output_
+
+- name: show bind status
+  debug:
+    var: output_.stdout
+
+- name: turn off tx and rx
+  shell:
+    cmd: ethtool -K ens192 tx off rx off
+
+- name: add dns to NetworkManager
+  shell:
+    cmd: nmcli con mod ens192 ipv4.dns "{{ ansible_default_ipv4.address }}"
+
+- name: restart NetworkManager
+  shell:
+    cmd: systemctl restart NetworkManager
+
+- name: add firewall rule
+  shell:
+    cmd: systemctl enable --now firewalld ; firewall-cmd --permanent --add-port=53/tcp ; firewall-cmd --permanent --add-port=53/udp ; firewall-cmd --reload

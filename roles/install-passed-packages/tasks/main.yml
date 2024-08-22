@@ -1,0 +1,14 @@
+---
+# tasks file for install-some-packages
+
+# tasks file for installing-bind
+- name: Install some packages
+  ansible.builtin.yum:
+    name:
+      - chrony
+      - vim
+      - telnet
+      - net-tools
+      - bash-completion
+    state: latest
+    update_cache: true
