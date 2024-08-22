@@ -27,7 +27,7 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 Navigate to the root of the repository and run the following command to execute a playbook:
 
-    ```
+    ``` 
     ansible-playbook -i inventory.conf playbooks/<playbook_name>.yml
     ```
 
