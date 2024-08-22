@@ -97,26 +97,26 @@ Playbook: playbooks/install-package.yml
 Details: This playbook runs the install-packages role to install the packages listed in the packages variable on the hosts specified in the host_group.
 
 
-6. **Change Password**
+## 3) Change Password
    - **Playbook**: `playbooks/change-password.yml`
    - **Usage**: Changes the password for a specified user on target hosts.
    - **Command**: 
-     ```bash
-     ansible-playbook -i inventory.conf playbooks/change-password.yml -e "user=username new_password=newpassword"
+     ```
+     ansible-playbook -i inventory.conf playbooks/change-password.yml
      ```
 
-7. **Set Hostnames**
+## 4) Set Hostnames
    - **Playbook**: `playbooks/set-hostnames.yml`
    - **Usage**: Sets the hostname on target hosts without requiring a reboot.
    - **Command**: 
-     ```bash
-     ansible-playbook -i inventory.conf playbooks/set-hostnames.yml -e "host_group=my_hosts new_hostname=mynewhostname"
+     ```
+     ansible-playbook -i inventory.conf playbooks/set-hostnames.yml
      ```
 
-8. **Set NTP**
+## 5) Set NTP
    - **Playbook**: `playbooks/set-ntp.yml`
    - **Usage**: Configures NTP settings on target hosts to ensure time synchronization.
    - **Command**: 
-     ```bash
-     ansible-playbook -i inventory.conf playbooks/set-ntp.yml -e "ntp_server=ntp.server.com"
+     ```
+     ansible-playbook -i inventory.conf playbooks/set-ntp.yml
      ```
