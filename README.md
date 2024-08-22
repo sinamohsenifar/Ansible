@@ -41,9 +41,10 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 - you must add your host name and their ip to zone file. 
 
 ### Main Zone Configuration
-    Playbook: playbooks/config_main_zone.yml
     
-    Usage: Configures DNS settings for the main zone servers, this server is like bridge between all dns servers and zones.
+Playbook: playbooks/config_main_zone.yml
+    
+- Usage: Configures DNS settings for the main zone servers, this server is like bridge between all dns servers and zones.
     Command:
 
     ```
@@ -52,8 +53,8 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 ### Zone One Configuration
 
-    Playbook: playbooks/config_zone_one.yml
-    Usage: Configures DNS settings for the first set of zone servers.
+Playbook: playbooks/config_zone_one.yml
+- Usage: Configures DNS settings for the first set of zone servers.
     Command:
 
     ```
@@ -62,8 +63,8 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 ### Zone Two Configuration
 
-    Playbook: playbooks/config_zone_two.yml
-    Usage: Configures DNS settings for the second set of zone servers.
+Playbook: playbooks/config_zone_two.yml
+- Usage: Configures DNS settings for the second set of zone servers.
     Command:
 
     ```
@@ -72,8 +73,8 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 ### Zone Three Configuration
 
-    Playbook: playbooks/config_zone_three.yml
-    Usage: Configures DNS settings for the third set of zone servers.
+Playbook: playbooks/config_zone_three.yml
+- Usage: Configures DNS settings for the third set of zone servers.
     Command:
 
     ```
@@ -85,12 +86,12 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 ### Install Packages Using a Role
 
-    Playbook: playbooks/install-package.yml
-    Usage: Installs specified packages on a target host group using a dedicated role.
+Playbook: playbooks/install-package.yml
+- Usage: Installs specified packages on a target host group using a dedicated role.
     Command:
 
     ```
     ansible-playbook -i inventory.conf playbooks/installpackage.yml -e "host_group=kafka packages=python3,bind"
     ```
 
-    Details: This playbook runs the install_packages_role to install the packages listed in the packages variable on the hosts specified in the host_group.
+Details: This playbook runs the install_packages_role to install the packages listed in the packages variable on the hosts specified in the host_group.
