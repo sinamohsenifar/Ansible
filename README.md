@@ -87,8 +87,7 @@ Playbook: playbooks/config_zone_three.yml
 ### Install Packages Using a Role
 
    - **Playbook**: playbooks/install-package.yml
-   - **Usage**: Installs specified packages on a target host group using a dedicated role.
-    Command:
+   - **Usage**: Installs specified packages on a target host group using a dedicated role Command:
     ```bash
     ansible-playbook -i inventory.conf playbooks/install-packages.yml -e "host_group=kafka packages=python3,bind"
     ```
