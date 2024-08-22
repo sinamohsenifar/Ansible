@@ -3,12 +3,13 @@
   set_fact:
     random_password: "{{ lookup('password', '/dev/null length=24 chars=ascii_letters,digits') }}"
 
-- name: Set new password
+- name: Set new password for root user
   vars:
     new_pass: "{{ random_password | password_hash('sha512') }}"
   user:
     name: root
     password: "{{ new_pass }}"
+
 - name: Display password
   debug:
     msg:
@@ -16,3 +17,14 @@
       - "     Domain: {{ inventory_hostname }}"
       - "     Pass: {{ random_password }}"
       - ""
+
+- name: Ensure passwords directory exists
+  file:
+    path: "{{ playbook_dir }}/passwords"
+    state: directory
+
+- name: Save password details to file
+  lineinfile:
+    path: "{{ playbook_dir }}/passwords/passwords-{{ ansible_date_time.date }}-{{ ansible_date_time.hour }}{{ ansible_date_time.minute }}.txt"
+    line: "Host: {{ ansible_host }} | IP: {{ ansible_default_ipv4.address }} | Domain: {{ inventory_hostname }} | Password: {{ random_password }}"
+    create: yes
