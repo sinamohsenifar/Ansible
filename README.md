@@ -14,6 +14,9 @@ This repository contains various Ansible playbooks and roles for automating infr
 
 - Ensure Ansible is installed on your control machine.
 - Clone this repository to your local machine.
+- This ansibles uses ssh key to login to servers. make sure you added your ssh-key to every machines with this command:
+    ```bash 
+    ssh-copy-id root@<ip-address>
 
 ### Setting Up Inventory
 
