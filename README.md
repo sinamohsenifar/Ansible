@@ -27,7 +27,8 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 Navigate to the root of the repository and run the following command to execute a playbook:
 
     ```bash
-    ansible-playbook -i inventory.conf playbooks/<playbook_name>.yml```
+    ansible-playbook -i inventory.conf playbooks/<playbook_name>.yml
+    ```
 
 
 
@@ -43,7 +44,8 @@ Navigate to the root of the repository and run the following command to execute 
     Command:
 
     ```bash
-    ansible-playbook -i inventory.conf playbooks/config_main_zone.yml```
+    ansible-playbook -i inventory.conf playbooks/config_main_zone.yml
+    ```
 
 ### Zone One Configuration
 
@@ -53,6 +55,7 @@ Navigate to the root of the repository and run the following command to execute 
 
     ```bash
     ansible-playbook -i inventory.conf playbooks/config_zone_one.yml
+    ```
 
 ### Zone Two Configuration
 
@@ -62,6 +65,7 @@ Navigate to the root of the repository and run the following command to execute 
 
     ```bash
     ansible-playbook -i inventory.conf playbooks/config_zone_two.yml
+    ```
 
 ### Zone Three Configuration
 
@@ -71,7 +75,7 @@ Navigate to the root of the repository and run the following command to execute 
 
     ```bash
     ansible-playbook -i inventory.conf playbooks/config_zone_three.yml
-
+    ```
 
 
 ## Install list of packages in server with ansible 
@@ -84,5 +88,6 @@ Navigate to the root of the repository and run the following command to execute 
 
     ```bash
     ansible-playbook -i inventory.conf playbooks/installpackage.yml -e "host_group=kafka packages=python3,bind"
-
+    ```
+    
     Details: This playbook runs the install_packages_role to install the packages listed in the packages variable on the hosts specified in the host_group.
