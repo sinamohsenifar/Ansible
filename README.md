@@ -41,7 +41,8 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 ### Main Zone Configuration
     Playbook: playbooks/config_main_zone.yml
-    Usage: Configures DNS settings for the main zone servers, this server is like bridge between all dns servers and zones.
+    
+- Usage: Configures DNS settings for the main zone servers, this server is like bridge between all dns servers and zones.
     Command:
 
     ```
