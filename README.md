@@ -120,7 +120,7 @@ Details: This playbook runs the install-packages role to install the packages li
      ```
 
 
-## 6) Install and Config Kafka servers
+## 6) Install and Config Kafka servers and kraft with Ansible
    - **Playbook**: `playbooks/install-kafka.yml`
    - **Usage**: Configures Kafka servers with Kraft.
    - **Command**: 
