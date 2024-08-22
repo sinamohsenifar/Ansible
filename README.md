@@ -109,6 +109,7 @@ Details: This playbook runs the install-packages role to install the packages li
 ## 4) Set Hostnames
    - **Playbook**: `playbooks/set-hostnames.yml`
    - **Usage**: Sets the hostname on target hosts without requiring a reboot.
+   - **Note**: this playbook will use hostname of server from inventory file.
    - **Command**: 
      ```bash
      ansible-playbook -i inventory.conf playbooks/set-hostnames.yml
