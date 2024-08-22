@@ -75,21 +75,20 @@ Playbook: playbooks/config_zone_two.yml
 
 Playbook: playbooks/config_zone_three.yml
 - Usage: Configures DNS settings for the third set of zone servers.
-    Command:
-
-    ```bash
-    ansible-playbook -i inventory.conf playbooks/config_zone_three.yml
-    ```
+    - **Command**:
+     ```bash
+     ansible-playbook -i inventory.conf playbooks/config_zone_three.yml
+     ```
 
 
 ## 2) Install list of packages in server with ansible 
 
    - **Playbook**: playbooks/install-package.yml
-   - **Usage**: Installs specified packages on a target host group using a dedicated role Command:
-
-    ```bash
-    ansible-playbook -i inventory.conf playbooks/install-packages.yml -e "host_group=kafka packages=python3,bind"
-    ```
+   - **Usage**: Installs specified packages on a target host group using a dedicated role.
+   - **Command**:
+     ```bash
+     ansible-playbook -i inventory.conf playbooks/install-packages.yml -e "host_group=kafka packages=python3,bind"
+     ```
 
 Details: This playbook runs the install-packages role to install the packages listed in the packages variable on the hosts specified in the host_group.
 
@@ -97,11 +96,11 @@ Details: This playbook runs the install-packages role to install the packages li
 ## 3) Change Password
    - **Playbook**: playbooks/change-password.yml
    - **Note**: this playbook will change all servers password and save them in directory of role change-password/passwords/<date-time-format>
-   - **Usage**: Changes the password for a specified user on target hosts with this command:
-
-    ```bash
-    ansible-playbook -i inventory.conf playbooks/change-password.yml
-    ```
+   - **Usage**: Changes the password for a specified user on target hosts.
+   - **Command**:
+     ```bash
+     ansible-playbook -i inventory.conf playbooks/change-password.yml
+     ```
 
 ## 4) Set Hostnames
    - **Playbook**: `playbooks/set-hostnames.yml`
