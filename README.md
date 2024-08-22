@@ -97,10 +97,10 @@ Details: This playbook runs the install-packages role to install the packages li
 
 
 ## 3) Change Password
-   - **Playbook**: `playbooks/change-password.yml`
+   - **Playbook**: playbooks/change-password.yml
    - **Note**: this playbook will change all servers password and save them in directory of role change-password/passwords/<date-time-format>
    - **Usage**: Changes the password for a specified user on target hosts with this command:
-   
+
     ```bash
     ansible-playbook -i inventory.conf playbooks/change-password.yml
     ```
