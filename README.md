@@ -91,7 +91,7 @@ Playbook: playbooks/install-package.yml
     Command:
 
     ```
-    ansible-playbook -i inventory.conf playbooks/installpackage.yml -e "host_group=kafka packages=python3,bind"
+    ansible-playbook -i inventory.conf playbooks/install-packages.yml -e "host_group=kafka packages=python3,bind"
     ```
 
-Details: This playbook runs the install_packages_role to install the packages listed in the packages variable on the hosts specified in the host_group.
+Details: This playbook runs the install-packages role to install the packages listed in the packages variable on the hosts specified in the host_group.
