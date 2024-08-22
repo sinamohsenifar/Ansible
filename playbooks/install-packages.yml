@@ -1,0 +1,12 @@
+---
+- name: Install specified packages
+  hosts: "{{ host_group }}"
+  become: yes
+  vars:
+    packages: "{{ packages.split(',') }}"
+  roles:
+    - role: install-packages
+
+
+
+# ansible-playbook -i inventory.conf playbooks/install-packages.yml -e "host_group=all packages=python3,telnet"
