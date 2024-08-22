@@ -34,7 +34,7 @@ The `inventory.conf` file should contain the groups and hosts that will be manag
 
 
 
-## Manage DNS SERVER With Ansible
+## 1) Manage DNS SERVER With Ansible
 
 ### notes:
 - Every time you changed zone files you can run it again
@@ -82,7 +82,7 @@ Playbook: playbooks/config_zone_three.yml
     ```
 
 
-## Install list of packages in server with ansible 
+## 2) Install list of packages in server with ansible 
 
 ### Install Packages Using a Role
 
