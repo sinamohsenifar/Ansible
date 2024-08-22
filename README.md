@@ -118,3 +118,12 @@ Details: This playbook runs the install-packages role to install the packages li
      ```bash
      ansible-playbook -i inventory.conf playbooks/set-ntp.yml
      ```
+
+
+## 6) Install and Config Kafka servers
+   - **Playbook**: `playbooks/install-kafka.yml`
+   - **Usage**: Configures Kafka servers with Kraft.
+   - **Command**: 
+     ```bash
+     ansible-playbook -i inventory.conf playbooks/install-kafka.yml
+     ```

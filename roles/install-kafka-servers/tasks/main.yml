@@ -1,2 +1,55 @@
 ---
-# tasks file for install-kafka-servers
+- name: Ensure Kafka installation directory exists
+  file:
+    path: "{{ kafka_install_dir }}"
+    state: directory
+
+- name: Upload Kafka tarball
+  copy:
+    src: kafka.tgz
+    dest: /tmp/kafka.tgz
+    remote_src: no
+
+- name: Extract Kafka
+  unarchive:
+    src: /tmp/kafka.tgz
+    dest: "{{ kafka_install_dir }}"
+    remote_src: yes
+    creates: "{{ kafka_install_dir }}/bin/kafka-server-start.sh"
+
+- name: Configure server.properties
+  template:
+    src: server.properties.j2
+    dest: "{{ kafka_config_dir }}/server.properties"
+
+- name: Format Kafka storage directories
+  shell: >
+    {{ kafka_install_dir }}/bin/kafka-storage.sh format -t {{ kafka_cluster_id }} -c {{ kafka_config_dir }}/server.properties
+  args:
+    creates: "{{ kafka_log_dirs }}"
+
+- name: Configure Kafka systemd service
+  template:
+    src: kafka.service.j2
+    dest: /etc/systemd/system/kafka.service
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Check if Kafka is running
+  shell: "systemctl is-active kafka"
+  register: kafka_status
+  ignore_errors: yes
+
+- name: Restart Kafka if it is already running
+  systemd:
+    name: kafka
+    state: restarted
+  when: kafka_status.stdout == 'active'
+
+- name: Start Kafka if it is not running
+  systemd:
+    name: kafka
+    state: started
+  when: kafka_status.stdout != 'active'
