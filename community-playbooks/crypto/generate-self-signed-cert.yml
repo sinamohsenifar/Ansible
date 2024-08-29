@@ -2,7 +2,7 @@
 - name: Manage SSL Certificates
   hosts: localhost
   vars:
-    output_directory: "/home/sina/Documents/Github/Ansible/community-playbooks/crypto/output"
+    output_directory: "/your_path/Ansible/community-playbooks/crypto/output"
     name: "gitlab"
     ca_name: "My CA"
     common_name: "gitlab.local.org"
