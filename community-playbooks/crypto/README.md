@@ -11,6 +11,7 @@ This Ansible playbook automates the management of SSL certificates, including ge
 ```
 
 
+
 ## Playbook Overview
 
 The playbook performs the following tasks:
@@ -20,9 +21,28 @@ The playbook performs the following tasks:
 3. Generates a CA certificate.
 4. Generates a private key for the server certificate.
 5. Generates a self-signed certificate.
-6. Generates a separate private key for the CSR.
-7. Creates a CSR.
-8. Signs the CSR with the CA.
+6. Creates a Certificate Signing Request (CSR).
+7. Signs the CSR with the CA.
+8. Bundles the server private key and signed certificate into a PEM file.
+9. Creates a PKCS#12 (PFX) file containing the private key and signed certificate.
+10. Extracts certificates and key from the PKCS#12 file.
+
+### Directory Structure
+
+The output of the playbook is stored in the specified `output_directory`. The directory structure will look like this:
+
+/your_path/Ansible/community-playbooks/crypto/output/ 
+└── gitlab
+    ├── ca.crt
+    ├── ca.key
+    ├── gitlab.crt
+    ├── gitlab.key
+    ├── gitlab.csr
+    ├── signed.crt
+    ├── gitlab.pem
+    ├── keystore.p12
+    └── keystore.pem
+
 
 ### Directory Structure
 
@@ -41,11 +61,14 @@ The output of the playbook is stored in the specified `output_directory`. The di
     ansible-playbook community-playbooks/crypto/generate-self-signed-cert.yml
 ```
 
+
 ## Variables
+
 The following variables are defined in the playbook:
 
-- output_directory: The directory where the certificates and keys will be stored.
-- name: The base name for the certificate files.
-- ca_name: The common name for the CA certificate.
-- common_name: The common name for the server certificate.
-- serial_number: The serial number used in the certificate.
+- `output_directory`: The directory where the certificates and keys will be stored.
+- `name`: The base name for the certificate files.
+- `ca_name`: The common name for the CA certificate.
+- `common_name`: The common name for the server certificate.
+- `serial_number`: The serial number used in the certificate.
+- `pfx_passphrase`: The passphrase for the PKCS#12 (PFX) file.

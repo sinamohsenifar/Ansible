@@ -2,11 +2,12 @@
 - name: Manage SSL Certificates
   hosts: localhost
   vars:
-    output_directory: "/your_path/Ansible/community-playbooks/crypto/output"
+    output_directory: "/home/sina/Documents/Github/Ansible/community-playbooks/crypto/output"
     name: "gitlab"
     ca_name: "My CA"
     common_name: "gitlab.local.org"
     serial_number: 01
+    pfx_passphrase: "your_password"
 
   tasks:
     - name: Ensure output directory exists
@@ -51,16 +52,10 @@
         state: present
         provider: "selfsigned"
 
-    - name: Generate a separate private key for the CSR
-      community.crypto.openssl_privatekey:
-        path: "{{ output_directory }}/{{ name }}/{{ name }}-csr-private.key"
-        size: 2048
-        type: RSA
-
     - name: Create a Certificate Signing Request (CSR)
       community.crypto.openssl_csr:
         path: "{{ output_directory }}/{{ name }}/{{ name }}.csr"
-        privatekey_path: "{{ output_directory }}/{{ name }}/{{ name }}-csr-private.key"
+        privatekey_path: "{{ output_directory }}/{{ name }}/{{ name }}.key"
         common_name: "{{ common_name }}"
 
     - name: Sign a CSR with the CA
@@ -75,3 +70,39 @@
         ownca_not_after: "+365d"
         state: present
         provider: "ownca"
+
+    - name: Bundle the server private key and certificate into a PEM file
+      copy:
+        content: "{{ lookup('file', output_directory + '/' + name + '/' + name + '.key') }}\n{{ lookup('file', output_directory + '/' + name + '/signed.crt') }}"
+        dest: "{{ output_directory }}/{{ name }}/{{ name }}.pem"
+        mode: '0600'
+
+    - name: Create a PKCS#12 file (PFX)
+      community.crypto.openssl_pkcs12:
+        path: "{{ output_directory }}/{{ name }}/keystore.p12"
+        privatekey_path: "{{ output_directory }}/{{ name }}/{{ name }}.key"
+        certificate_path: "{{ output_directory }}/{{ name }}/signed.crt"
+        passphrase: "{{ pfx_passphrase }}"
+        friendly_name: "{{ name }}"
+        other_certificates:
+          - "{{ output_directory }}/{{ name }}/ca.crt"
+
+    - name: Extract certificates and key from a PKCS#12 file
+      community.crypto.openssl_pkcs12:
+        action: parse
+        src: "{{ output_directory }}/{{ name }}/keystore.p12"
+        path: "{{ output_directory }}/{{ name }}/keystore.pem"
+        passphrase: "{{ pfx_passphrase }}"
+
+    - name: List all generated files and their types
+      debug:
+        msg:
+          - "Private Key (CA): {{ output_directory }}/{{ name }}/ca.key"
+          - "CA Certificate: {{ output_directory }}/{{ name }}/ca.crt"
+          - "Private Key (Server): {{ output_directory }}/{{ name }}/{{ name }}.key"
+          - "Server Certificate: {{ output_directory }}/{{ name }}/{{ name }}.crt"
+          - "Certificate Signing Request (CSR): {{ output_directory }}/{{ name }}/{{ name }}.csr"
+          - "Signed Certificate: {{ output_directory }}/{{ name }}/signed.crt"
+          - "PEM Bundle (Private Key + Cert): {{ output_directory }}/{{ name }}/{{ name }}.pem"
+          - "PKCS#12 File (PFX): {{ output_directory }}/{{ name }}/keystore.p12"
+          - "Extracted PEM (From PFX): {{ output_directory }}/{{ name }}/keystore.pem"
