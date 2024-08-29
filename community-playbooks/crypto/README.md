@@ -45,13 +45,6 @@ The output of the playbook is stored in the specified `output_directory`. The di
     └── keystore.pem
 ```
 
-### Directory Structure
-
-The output of the playbook is stored in the specified `output_directory`. The directory structure will look like this:
-
-/your_path/Ansible/community-playbooks/crypto/output/ └── gitlab ├── ca.crt ├── ca.key ├── gitlab.crt ├── gitlab.key ├── gitlab-csr-private.key └── gitlab.csr
-
-
 
 ## Usage
 - Running the Playbook
