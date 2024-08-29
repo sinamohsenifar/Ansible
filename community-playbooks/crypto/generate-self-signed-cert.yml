@@ -3,9 +3,9 @@
   hosts: localhost
   vars:
     output_directory: "/home/sina/Documents/Github/Ansible/community-playbooks/crypto/output"
-    name: "gitlab"
+    name: "mysite"
     ca_name: "My CA"
-    common_name: "gitlab.local.org"
+    common_name: "mysite.local.org"
     serial_number: 01
     pfx_passphrase: "your_password"
 
