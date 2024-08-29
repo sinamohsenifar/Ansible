@@ -1,4 +1,4 @@
-# Manage SSL Certificates with Ansible
+# Create SSL Certificates (Self Signed Certificates) with Ansible
 
 This Ansible playbook automates the management of SSL certificates, including generating a Certificate Authority (CA), creating self-signed certificates, and signing a Certificate Signing Request (CSR) with the CA.
 
