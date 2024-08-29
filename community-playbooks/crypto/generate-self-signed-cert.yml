@@ -1,0 +1,77 @@
+---
+- name: Manage SSL Certificates
+  hosts: localhost
+  vars:
+    output_directory: "/home/sina/Documents/Github/Ansible/community-playbooks/crypto/output"
+    name: "gitlab"
+    ca_name: "My CA"
+    common_name: "gitlab.local.org"
+    serial_number: 01
+
+  tasks:
+    - name: Ensure output directory exists
+      file:
+        path: "{{ output_directory }}/{{ name }}"
+        state: directory
+        mode: '0755'
+
+    - name: Generate a private key for the CA
+      community.crypto.openssl_privatekey:
+        path: "{{ output_directory }}/{{ name }}/ca.key"
+        size: 2048
+        type: RSA
+
+    - name: Generate a CA certificate
+      community.crypto.x509_certificate:
+        path: "{{ output_directory }}/{{ name }}/ca.crt"
+        privatekey_path: "{{ output_directory }}/{{ name }}/ca.key"
+        selfsigned_create_subject_key_identifier: "always_create"
+        selfsigned_digest: "sha256"
+        selfsigned_not_before: "{{ lookup('pipe', 'date +%Y%m%d%H%M%SZ') }}"
+        selfsigned_not_after: "+365d"
+        selfsigned_version: 3
+        state: present
+        provider: "selfsigned"
+
+    - name: Generate a private key for the certificate
+      community.crypto.openssl_privatekey:
+        path: "{{ output_directory }}/{{ name }}/{{ name }}.key"
+        size: 2048
+        type: RSA
+
+    - name: Generate a self-signed certificate
+      community.crypto.x509_certificate:
+        path: "{{ output_directory }}/{{ name }}/{{ name }}.crt"
+        privatekey_path: "{{ output_directory }}/{{ name }}/{{ name }}.key"
+        selfsigned_create_subject_key_identifier: "always_create"
+        selfsigned_digest: "sha256"
+        selfsigned_not_before: "{{ lookup('pipe', 'date +%Y%m%d%H%M%SZ') }}"
+        selfsigned_not_after: "+365d"
+        selfsigned_version: 3
+        state: present
+        provider: "selfsigned"
+
+    - name: Generate a separate private key for the CSR
+      community.crypto.openssl_privatekey:
+        path: "{{ output_directory }}/{{ name }}/{{ name }}-csr-private.key"
+        size: 2048
+        type: RSA
+
+    - name: Create a Certificate Signing Request (CSR)
+      community.crypto.openssl_csr:
+        path: "{{ output_directory }}/{{ name }}/{{ name }}.csr"
+        privatekey_path: "{{ output_directory }}/{{ name }}/{{ name }}-csr-private.key"
+        common_name: "{{ common_name }}"
+
+    - name: Sign a CSR with the CA
+      community.crypto.x509_certificate:
+        path: "{{ output_directory }}/{{ name }}/signed.crt"
+        csr_path: "{{ output_directory }}/{{ name }}/{{ name }}.csr"
+        ownca_path: "{{ output_directory }}/{{ name }}/ca.crt"
+        ownca_privatekey_path: "{{ output_directory }}/{{ name }}/ca.key"
+        ownca_digest: "sha256"
+        ownca_version: 3
+        ownca_not_before: "{{ lookup('pipe', 'date +%Y%m%d%H%M%SZ') }}"
+        ownca_not_after: "+365d"
+        state: present
+        provider: "ownca"
