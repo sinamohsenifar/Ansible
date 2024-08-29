@@ -1,6 +1,11 @@
 # Manage SSL Certificates with Ansible
 
 This Ansible playbook automates the management of SSL certificates, including generating a Certificate Authority (CA), creating self-signed certificates, and signing a Certificate Signing Request (CSR) with the CA.
+## install community.crypto
+- first you need to install collection
+```
+    ansible-galaxy collection install community.crypto
+```
 
 ## Playbook Overview
 
